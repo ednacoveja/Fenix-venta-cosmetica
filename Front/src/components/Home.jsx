@@ -1,13 +1,13 @@
 import React from 'react'
 import Navbar from "./Navbar";
-import Product from './Product';
+import Products from './Products';
 
 export const Home = () => {
     return (
         <div>
             <Navbar />
             <div>
-                <Product />
+                <Products />
             </div>
 
         </div>
