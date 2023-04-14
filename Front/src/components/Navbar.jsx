@@ -6,16 +6,22 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
-import { Badge, Link } from '@mui/material';
-
+import { Badge } from '@mui/material';
+import { useNavigate } from "react-router-dom";
 
 
 export default function Navbar() {
+    const navigate = useNavigate();
+
+    async function ALaLanding(e) {
+        e.preventDefault();
+        navigate("/");
+    }
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={{ bgcolor: "black" }} >
                 <Toolbar >
-                    <Link to="/" />
                     <IconButton
                         size="large"
                         edge="start"
@@ -32,7 +38,12 @@ export default function Navbar() {
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
                         Tienda Fenix
                     </Typography>
-                    <Button color="inherit" component="div">Logout</Button>
+
+                    <Button color="inherit" component="button" variant="outline" onClick={(e) => {
+                        ALaLanding(e);
+                    }}>Logout</Button>
+
+
                     <IconButton aria-label='show cart items' color="inherit">
 
                         <Badge badgeContent={3} color='error' max={99}
