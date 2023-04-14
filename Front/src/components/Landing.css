@@ -40,7 +40,7 @@ body {
 
 .btnCreCu:hover {
     background-image: linear-gradient(to right, rgba(78, 140, 190, 0.363), rgba(83, 170, 211, 0.288), rgba(26, 93, 138, 0.349));
-    color: rgb(0, 0, 0);
+    color: rgb(128, 237, 245);
     text-decoration: none;
 }
 
