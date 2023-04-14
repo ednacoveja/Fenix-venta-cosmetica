@@ -14,19 +14,28 @@ export const Landing = () => {
 
     return (
         <div className='landing'>
-            <div className='laCont'>
-                <div className='landArribaCont'>
-                    <div className='logo'>Emprendimiento Artesanal</div>
-                    <div >
-                        <button className='btnCreCu' onClick={(e) => ALaHome(e)}>Tienda Online</button>
-                    </div>
+            <div className='landArribaCont'>
+                <div className='logo'>
+                    Emprendimiento Artesanal 
                 </div>
-                <div className='lan1Cont'>
-                    <div className='lan1Left'>
-                     
-                    </div>
+                <div >
+                    <button className='btnCreCu' onClick={(e) => ALaHome(e)}>Tienda Online</button>
                 </div>
             </div>
+            <div className='landArribaCont'>
+                <div >
+                </div>
+                <div >
+                    <button className='btnCreCu' onClick={(e) => ALaHome(e)}>Crear Cuenta</button>
+                </div>
+            </div>
+            <div className='landArribaCont'>
+                <div></div>
+                <div >
+                    <button className='btnCreCu' onClick={(e) => ALaHome(e)}>Ingresar</button>
+                </div>
+            </div>
+
         </div>
 
     )

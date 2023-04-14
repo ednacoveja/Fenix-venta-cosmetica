@@ -1,60 +1,36 @@
 body {
     margin: 0;
 }
-
-.laCont {
-    /* background-color: rgb(238, 232, 232,0.1); */
-    background-image: url('../../public/images/logoAzul.png');
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 5px;
-    backdrop-filter: blur(8px);
-    box-shadow: rgba(0, 0, 0, 0.65) 0px 54px 55px, rgba(0, 0, 0, 0.42) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
-    height: 90vh;
-    margin-left: 7%;
-    width: 86%;
-    position: relative;
-    top: -30px;
-}
-
 .landing {
     overflow: hidden;
     padding-top: 4%;
-    color: white;
+    color: black;
     width: 100%;
-    height: 91.3vh;
-    background-image: url('../../public/images/logoCeleste.png');
+    height: 92vh;
+    background-image: url('../../public/images/fenixBlack.png');
     background-size: cover;
     background-repeat: no-repeat;
 }
 
-.lan1Cont {
-    width: 100%;
-    height: 90vh;
-    display: grid;
-    grid-template-columns: 50% 50%;
-}
-
-
 .logo {
-    margin-top: 1%;
+    margin-top: 0%;
     margin-left: 3%;
-    width: 73px;
+    width: 70px;
     height: 70px;
-    font-size: 30px;
-    color: rgb(188, 220, 255);
+    font-size: 37px;
+    color: white;
 
 }
 
 .btnCreCu {
     all: unset;
     background-image: url('../../public/images/logoRedondo.png');
-    color: rgb(188, 220, 255);
+    color: white;
     width: 75%;
     margin: 20px;
     text-align: center;
     padding: 15px 0px 15px 0px;
-    border-radius: 5px;
+    border-radius: 100px;
     font-size: 19px;
     cursor: pointer;
     border: 0.5px solid rgb(188, 220, 255);
@@ -64,7 +40,7 @@ body {
 
 .btnCreCu:hover {
     background-image: linear-gradient(to right, rgba(78, 140, 190, 0.363), rgba(83, 170, 211, 0.288), rgba(26, 93, 138, 0.349));
-    color:black;
+    color: rgb(0, 0, 0);
     text-decoration: none;
 }
 
