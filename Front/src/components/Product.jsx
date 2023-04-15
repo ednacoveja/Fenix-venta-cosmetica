@@ -9,9 +9,10 @@ import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import { cyan, grey,teal } from '@mui/material/colors';
+import { cyan, grey, teal } from '@mui/material/colors';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import accounting from "accounting"
 
 
 
@@ -34,10 +35,10 @@ export default function Product() {
     };
 
     return (
-        <Card sx={{ maxWidth: 345 }} >
+        <Card sx={{ maxWidth: 345, backgroundColor: "black" }} >
             <CardHeader
                 avatar={
-                    <Avatar sx={{ bgcolor: grey[900] }} aria-label="recipe">
+                    <Avatar sx={{ bgcolor: grey[800] }} aria-label="recipe">
                         <img
                             width={"30px"}
                             src={'images/fenixBlackCircular.png'}
@@ -48,22 +49,28 @@ export default function Product() {
                 action={
                     <Typography
                         variant='h4'
-                        color="textSecondary"
+                        color="white"
                     >
-                        {/* {accounting.formatMoney(500,"$")} */}
-                        {"$500"}
+                        {accounting.formatMoney(500, "$", 0)}
                     </Typography>
                 }
                 title={
                     <Typography
                         variant='h5'
-                        color="title"
+                        color="white"
                     >
                         {"Jabon Aloe"}
                     </Typography>
                 }
 
-                subheader="Stock"
+                subheader={
+                    <Typography
+                        variant='h8'
+                        color="white"
+                    >
+                        Stock
+                    </Typography>
+                }
             />
             <CardMedia
                 component="img"
@@ -72,14 +79,14 @@ export default function Product() {
                 alt="Jabon"
             />
             <CardContent>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="body2" color="white">
                     Jabón Fénix de Aloe Vera y Romero natural.
 
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
                 <IconButton aria-label="add to Cart" >
-                    <AddShoppingCart fontSize="large" />
+                    <AddShoppingCart fontSize="large" sx={{ color: 'white' }} />
                 </IconButton>
                 {Array(5)
                     .fill()
@@ -93,16 +100,12 @@ export default function Product() {
                     aria-expanded={expanded}
                     aria-label="show more"
                 >
-                    <ExpandMoreIcon />
+                    <ExpandMoreIcon sx={{ color: 'white' }} />
                 </ExpandMore>
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography paragraph>Descripcion:</Typography>
-                    <Typography paragraph>
-                        Ideales para limpieza del rostro, ayuda a combatir el acné y puntos negros.
-                    </Typography>
-
+                    <Typography paragraph color={"white"}>Ideales para limpieza del rostro, ayuda a combatir el acné y puntos negros.</Typography>
                 </CardContent>
             </Collapse>
         </Card>
