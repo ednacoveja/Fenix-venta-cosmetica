@@ -13,11 +13,22 @@ module.exports = (sequelize) => {
         type: DataTypes.STRING,
         allowNull: true,
       },
+      type: {
+        type: DataTypes.TEXT,
+      },
       description: {
         type: DataTypes.TEXT,
-        allowNull: true,
       },
-
+      price: {
+        type: DataTypes.INTEGER,
+      },
+      rating: {
+        type: DataTypes.INTEGER,
+        validate: {
+          min: 1,
+          max: 5
+        }
+      },
       image: {
         type: DataTypes.TEXT,
       },
