@@ -7,7 +7,7 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import { Badge } from '@mui/material';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 
 export default function Navbar() {
@@ -20,21 +20,25 @@ export default function Navbar() {
 
     return (
         <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="fixed" sx={{ bgcolor: "black", boxShadow:"10px 0.7px grey"}} >
+            <AppBar position="fixed" sx={{ bgcolor: "black", boxShadow: "10px 0.7px grey" }} >
+
+
                 <Toolbar >
-                    <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 0 }}
-                    >
-                        <img
-                            width={"30px"}
-                            src={'images/logoRedondo.png'}
-                            alt="Logo"
-                        />
-                    </IconButton>
+                    <Link to="/home">
+                        <IconButton
+                            size="large"
+                            edge="start"
+                            color="inherit"
+                            aria-label="menu"
+                            sx={{ mr: 0 }}
+                        >
+                            <img
+                                width={"30px"}
+                                src={'images/logoRedondo.png'}
+                                alt="Logo"
+                            />
+                        </IconButton>
+                    </Link>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
                         Tienda Fenix
                     </Typography>
@@ -42,21 +46,20 @@ export default function Navbar() {
                     <Button color="inherit" component="button" variant="outline" onClick={(e) => {
                         ALaLanding(e);
                     }}>Logout</Button>
+                    <Link to="/carrito">
+                        <IconButton aria-label='show cart items' color="inherit">
 
+                            <Badge badgeContent={3} color='error' max={99}
+                                anchorOrigin={{
+                                    vertical: 'top',
+                                    horizontal: 'right',
+                                }}
 
-                    <IconButton aria-label='show cart items' color="inherit">
-
-                        <Badge badgeContent={3} color='error' max={99}
-                            anchorOrigin={{
-                                vertical: 'top',
-                                horizontal: 'right',
-                            }}
-
-                        >
-                            <AddShoppingCart fontSize="large" ></AddShoppingCart>
-                        </Badge>
-                    </IconButton>
-
+                            >
+                                <AddShoppingCart fontSize="large" ></AddShoppingCart>
+                            </Badge>
+                        </IconButton>
+                    </Link>
                 </Toolbar>
             </AppBar>
         </Box>
