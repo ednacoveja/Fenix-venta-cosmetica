@@ -27,7 +27,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Product() {
+export default function Product({ id, name, rating, description, image, type, price }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -51,7 +51,7 @@ export default function Product() {
                         variant='h4'
                         color="white"
                     >
-                        {accounting.formatMoney(500, "$", 0)}
+                        {accounting.formatMoney(price, "$", 0)}
                     </Typography>
                 }
                 title={
@@ -59,7 +59,7 @@ export default function Product() {
                         variant='h5'
                         color="white"
                     >
-                        {"Jabon Aloe"}
+                        {name}
                     </Typography>
                 }
 
@@ -75,12 +75,12 @@ export default function Product() {
             <CardMedia
                 component="img"
                 height="194"
-                image="images/JabonAloe.jpg"
-                alt="Jabon"
+                image={image}
+                alt={name}
             />
             <CardContent>
                 <Typography variant="body2" color="white">
-                    Jabón Fénix de Aloe Vera y Romero natural.
+                    {type}
 
                 </Typography>
             </CardContent>
@@ -88,7 +88,7 @@ export default function Product() {
                 <IconButton aria-label="add to Cart" >
                     <AddShoppingCart fontSize="large" sx={{ color: 'white' }} />
                 </IconButton>
-                {Array(5)
+                {Array(rating)
                     .fill()
                     .map((_, i) => (
                         <p>&#11088;</p>
@@ -105,7 +105,7 @@ export default function Product() {
             </CardActions>
             <Collapse in={expanded} timeout="auto" unmountOnExit>
                 <CardContent>
-                    <Typography paragraph color={"white"}>Ideales para limpieza del rostro, ayuda a combatir el acné y puntos negros.</Typography>
+                    <Typography paragraph color={"white"}>{description}</Typography>
                 </CardContent>
             </Collapse>
         </Card>
