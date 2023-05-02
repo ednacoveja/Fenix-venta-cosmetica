@@ -1,4 +1,4 @@
-const { Producto} = require("../db");
+const { Producto } = require("../db");
 const { Op } = require("sequelize");
 
 const getAllPost = async (req, res) => {
@@ -28,11 +28,14 @@ const getAllPost = async (req, res) => {
 
 const createPost = async (req, res) => {
   try {
-    let { name, description, image } = req.body;
+    let { name, description, image, type,price,rating } = req.body;
     let createP = await Producto.create({
       name,
       description,
       image,
+      type,
+      price,
+      rating,
     });
 
     res.status(200).send(createP);

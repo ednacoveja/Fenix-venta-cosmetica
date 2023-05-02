@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState } from "react";
+import { useDispatch} from "react-redux";
+import { Link} from "react-router-dom";
 import { createPost } from "../redux/actions";
 
 function CreateOnlyAdmin() {
@@ -25,6 +25,7 @@ function CreateOnlyAdmin() {
   const handlerSubmit = (e) => {
     e.preventDefault();
     dispatch(createPost(input));
+    alert("creado")
     setInput({
       name: "",
       description: "",
