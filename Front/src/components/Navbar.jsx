@@ -17,6 +17,10 @@ export default function Navbar() {
         e.preventDefault();
         navigate("/");
     }
+    async function ShoppingCart(e) {
+        e.preventDefault();
+        navigate("/carrito");
+    }
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -46,20 +50,17 @@ export default function Navbar() {
                     <Button color="inherit" component="button" variant="outline" onClick={(e) => {
                         ALaLanding(e);
                     }}>Logout</Button>
-                    <Link to="/carrito">
-                        <IconButton aria-label='show cart items' color="inherit">
+                    <IconButton aria-label='show cart items' color="inherit">
 
-                            <Badge badgeContent={3} color='error' max={99}
-                                anchorOrigin={{
-                                    vertical: 'top',
-                                    horizontal: 'right',
-                                }}
-
-                            >
-                                <AddShoppingCart fontSize="large" ></AddShoppingCart>
-                            </Badge>
-                        </IconButton>
-                    </Link>
+                        <Badge badgeContent={3} color='error' max={99}
+                            anchorOrigin={{
+                                vertical: 'top',
+                                horizontal: 'right',
+                            }}
+                        >
+                            <AddShoppingCart fontSize="large" onClick={(e) => { ShoppingCart(e) }}></AddShoppingCart>
+                        </Badge>
+                    </IconButton>
                 </Toolbar>
             </AppBar>
         </Box>
