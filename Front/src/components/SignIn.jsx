@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,7 +13,9 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './Navbar';
-import { Link as RouteLink, useHistory } from "react-router-dom"
+import { Link as RouteLink, useNavigate } from "react-router-dom"
+import auth from '../firebase';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 
 const theme = createTheme();
@@ -27,7 +29,21 @@ export default function SignIn() {
             password: data.get('password'),
         });
     };
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
 
+    const signin = (e) => {
+        e.preventDefault()
+        signInWithEmailAndPassword(auth, email, password)
+            .then((auth) => {
+                console.log(auth)
+                if(auth) {
+                    navigate("/home")
+                }
+            })
+            .catch(err => alert(err.message))
+    }
     return (
         <body >
             <Navbar />
@@ -53,6 +69,8 @@ export default function SignIn() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                value={email}
+                                onChange={e => setEmail(e.target.value)}
                                 id="email"
                                 label="Email Address"
                                 name="email"
@@ -63,6 +81,8 @@ export default function SignIn() {
                                 margin="normal"
                                 required
                                 fullWidth
+                                value={password}
+                                onChange={e => setPassword(e.target.value)}
                                 name="password"
                                 label="Password"
                                 type="password"
@@ -77,6 +97,7 @@ export default function SignIn() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                onClick={signin}
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign In

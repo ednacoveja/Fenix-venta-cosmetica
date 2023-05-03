@@ -1,4 +1,4 @@
-import * as React from 'react';
+import { useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -13,12 +13,15 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Navbar from './Navbar';
-import { Link as RouteLink, useHistory } from "react-router-dom"
+import { Link as RouteLink, useNavigate } from "react-router-dom"
+import  auth  from '../firebase';
+import { createUserWithEmailAndPassword } from "firebase/auth"
 
 
 const theme = createTheme();
 
 export default function SignUp() {
+
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -27,11 +30,24 @@ export default function SignUp() {
             password: data.get('password'),
         });
     };
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const navigate = useNavigate()
+
+    const signup = (e) => {
+        e.preventDefault()
+        createUserWithEmailAndPassword(auth,email, password)
+            .then((auth) => {
+                console.log(auth)
+                if (auth) {
+                    navigate("/home")
+                }
+            })
+            .catch(err => alert(err.message))
+    }
 
     return (
         <body>
-
-
             <Navbar />
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
@@ -77,6 +93,8 @@ export default function SignUp() {
                                     <TextField
                                         required
                                         fullWidth
+                                        value={email}
+                                        onChange={e => setEmail(e.target.value)}
                                         id="email"
                                         label="Email Address"
                                         name="email"
@@ -87,6 +105,8 @@ export default function SignUp() {
                                     <TextField
                                         required
                                         fullWidth
+                                        value={password}
+                                        onChange={e => setPassword(e.target.value)}
                                         name="password"
                                         label="Password"
                                         type="password"
@@ -105,6 +125,7 @@ export default function SignUp() {
                                 type="submit"
                                 fullWidth
                                 variant="contained"
+                                onClick={signup}
                                 sx={{ mt: 3, mb: 2 }}
                             >
                                 Sign Up
