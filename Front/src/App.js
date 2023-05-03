@@ -3,6 +3,8 @@ import { Landing } from "./components/Landing.jsx";
 import Carrito from "./components/Carrito.jsx";
 import Products from "./components/Products.jsx";
 import CreateOnlyAdmin from "./components/CreateOnlyAdmin.jsx";
+import SignIn from "./components/SignIn.jsx";
+import SignUp from "./components/SignUp.jsx";
 
 function App() {
   return (
@@ -12,6 +14,8 @@ function App() {
         <Route path="/home" element={<Products />}/> 
         <Route path="/carrito" element={<Carrito />} />
         <Route path="/admin" element={<CreateOnlyAdmin />}/> 
+        <Route path="/signin" element={<SignIn />}/> 
+        <Route path="/signup" element={<SignUp />}/> 
       </Routes>
     </div>
   );

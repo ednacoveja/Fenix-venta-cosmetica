@@ -91,7 +91,7 @@ function CreateOnlyAdmin() {
             <label className="label">Image:</label>
             <input
               className="input"
-              type="text"
+              type="file"
               name="image"
               value={input.image}
               onChange={(e) => handlerChange(e)}

@@ -49,7 +49,7 @@ export default function Navbar() {
 
                     <Button color="inherit" component="button" variant="outline" onClick={(e) => {
                         ALaLanding(e);
-                    }}>Logout</Button>
+                    }}>Landing</Button>
                     <IconButton aria-label='show cart items' color="inherit">
 
                         <Badge badgeContent={3} color='error' max={99}
