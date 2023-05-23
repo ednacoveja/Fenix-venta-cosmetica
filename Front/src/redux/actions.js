@@ -14,7 +14,11 @@ export function getProductos() {
 export function createPost(payload) {
   try {
     return async function (dispatch) {
-      const response = await axios.post("http://localhost:3001/productos", payload);
+      const response = await axios.post("http://localhost:3001/productos", payload,{
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       return dispatch({ type: "CREATE_POST", payload: response.data });
     };
   } catch (e) {

@@ -1,6 +1,7 @@
 const initialState = {
     productos: [],
-    allProducts: []
+    allProducts: [],
+    user:null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -8,8 +9,7 @@ const rootReducer = (state = initialState, action) => {
         case "GET_PRODUCTS":
             return {
                 ...state,
-                productos:
-                    state.productos.length === 0 ? action.payload : state.productos,
+                productos:action.payload,
                 allProducts: action.payload,
             }
         case "CREATE_POST":
