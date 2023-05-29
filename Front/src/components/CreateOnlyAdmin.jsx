@@ -16,6 +16,13 @@ function CreateOnlyAdmin() {
   });
 
   const handlerChange = (e) => {
+    console.log(e.target.value)
+    // if(e.target.name === "image"){
+    //   setInput({
+    //     ...input,
+    //     [e.target.name]: e.target.files[0],
+    //   });
+    // }
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -96,6 +103,7 @@ function CreateOnlyAdmin() {
               value={input.image}
               onChange={(e) => handlerChange(e)}
             />
+            <button type="button">Subir IMG</button>
             <br />
             <br />
             <label className="label">Type:</label>
