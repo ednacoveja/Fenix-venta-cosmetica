@@ -103,7 +103,7 @@ function CreateOnlyAdmin() {
               value={input.image}
               onChange={(e) => handlerChange(e)}
             />
-            <button type="button">Subir IMG</button>
+      
             <br />
             <br />
             <label className="label">Type:</label>

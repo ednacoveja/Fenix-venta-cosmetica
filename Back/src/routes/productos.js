@@ -6,15 +6,14 @@ const {
   eliminarPost,
   editPost,
 } = require("../controllers/productos");
-const multer = require('multer');
+
 
 const router = Router();
-// const fileUpload = require("express-fileupload")
-const fileUpload = multer({dest:"uploads/"})
+
 
 router.get("/", getAllPost);
 router.get("/:id", detailPost);
-router.post("/",fileUpload.single("image"),createPost);
+router.post("/",createPost);
 router.delete("/:id", eliminarPost);
 router.patch("/:id", editPost);
 
