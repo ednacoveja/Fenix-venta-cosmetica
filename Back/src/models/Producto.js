@@ -32,6 +32,9 @@ module.exports = (sequelize) => {
       image: {
         type: DataTypes.TEXT,
       },
+      url:{
+        type: DataTypes.TEXT,
+      }
     },
     { timestamps: true }
   );

@@ -7,13 +7,16 @@ const {
   editPost,
 } = require("../controllers/productos");
 
-
+const fileUpload = require("express-fileupload")
 const router = Router();
 
 
 router.get("/", getAllPost);
 router.get("/:id", detailPost);
-router.post("/",createPost);
+router.post("/",fileUpload({
+  useTempFiles:true,
+  tempFileDir:"./uploads"
+}),createPost);
 router.delete("/:id", eliminarPost);
 router.patch("/:id", editPost);
 
