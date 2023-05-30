@@ -31,8 +31,8 @@ const createPost = async (req, res) => {
     let { name, description,type,price,rating } = req.body;
     const obj = {};
     if (name) obj.name = name;
-    if (texto) obj.description = description;
-    if (premium) obj.type = type;
+    if (description) obj.description = description;
+    if (type) obj.type = type;
     if (price) obj.price = price;
     if (rating) obj.rating = rating;
     if (req.files) {
