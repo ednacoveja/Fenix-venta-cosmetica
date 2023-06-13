@@ -1,7 +1,7 @@
 const initialState = {
     productos: [],
     allProducts: [],
-    user:null
+    user:null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -25,6 +25,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 productos: filter,
             };
+        case "SET_USER":
+                return {
+                    ...state,
+                    user: action.payload
+                };    
 
         default:
             return {
