@@ -13,9 +13,9 @@ import { useNavigate, Link } from "react-router-dom";
 export default function Navbar() {
     const navigate = useNavigate();
 
-    async function ALaLanding(e) {
+    async function ALaHome(e) {
         e.preventDefault();
-        navigate("/");
+        navigate("/home");
     }
     async function ShoppingCart(e) {
         e.preventDefault();
@@ -28,7 +28,7 @@ export default function Navbar() {
 
 
                 <Toolbar >
-                    <Link to="/home">
+                    <Link to="/">
                         <IconButton
                             size="large"
                             edge="start"
@@ -43,13 +43,15 @@ export default function Navbar() {
                             />
                         </IconButton>
                     </Link>
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }} >
-                        Tienda Fenix
+                    <Typography  sx={{ flexGrow: 1 }} >
+                        <Button color="inherit" component="button" variant="outline" onClick={(e) => {
+                            ALaHome(e);
+                        }}>Tienda Fenix</Button>
                     </Typography>
 
-                    <Button color="inherit" component="button" variant="outline" onClick={(e) => {
-                        ALaLanding(e);
-                    }}>Landing</Button>
+                    <Typography variant="h7" component="div" sx={{ flexGrow: 0 }}> Estas como invitado/a </Typography>
+
+
                     <IconButton aria-label='show cart items' color="inherit">
 
                         <Badge badgeContent={3} color='error' max={99}

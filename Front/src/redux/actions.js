@@ -1,5 +1,5 @@
 import axios from "axios";
-import auth from "../firebase";
+
 
 
 export function getProductos() {
@@ -39,19 +39,17 @@ export function deletePost(id) {
   }
 }
 
-export function setUser() {
-  auth.onAuthStateChanged((authUser) => {
-    console.log(authUser)
-    if (authUser) {
-      return async function (dispatch) {
-        return dispatch
-          ({
-            type: "SET_USER",
-            payload: authUser,
-          })
-      }
-    }
-  })
 
+export const getUsers = () => dispatch => {
+  return axios.get("http://localhost:3001/users")
+    .then((d) => dispatch({ type: 'GET_USERS', payload: d.data }))
+    .catch((e) => console.log(e))
+}
+
+
+export const createUser = (form) => dispatch => {
+  return axios.post("http://localhost:3001/users", form)
+    .then(d => dispatch({ type: 'CREATE_USER', payload: d.data }))
+    .catch(e => console.log(e))
 }
 

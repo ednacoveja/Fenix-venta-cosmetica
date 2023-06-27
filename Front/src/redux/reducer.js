@@ -1,7 +1,7 @@
 const initialState = {
     productos: [],
     allProducts: [],
-    user:null,
+    user: null,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const rootReducer = (state = initialState, action) => {
         case "GET_PRODUCTS":
             return {
                 ...state,
-                productos:action.payload,
+                productos: action.payload,
                 allProducts: action.payload,
             }
         case "CREATE_POST":
@@ -25,11 +25,20 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 productos: filter,
             };
-        case "SET_USER":
-                return {
-                    ...state,
-                    user: action.payload
-                };    
+        case "GET_USERS":
+            return {
+                ...state,
+                Users: action.payload,
+                loading: false,
+            };
+
+        case "CREATE_USER":
+            return {
+                ...state,
+                mensajeResultado: action.payload.msg,
+                UserLoged: action.payload.user,
+                loading: false,
+            };
 
         default:
             return {

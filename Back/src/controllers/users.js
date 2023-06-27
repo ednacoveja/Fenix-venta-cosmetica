@@ -1,8 +1,20 @@
+const { where } = require("sequelize");
 const { User } = require("../db");
 
 
 const getUser = async (req, res) => {
   try {
+
+    let { email } = req.body
+    if (email) {
+      const usuario = await User.findOne({
+        where: {
+          email,
+        },
+      })
+      res.status(200).json(usuario)
+    }
+
     const data = await User.findAll();
     if (!data.length) throw new Error("No hay usuarios en la base de datos")
 
