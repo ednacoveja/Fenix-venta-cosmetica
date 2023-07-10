@@ -1,5 +1,7 @@
 const { Producto } = require("../db");
 const { Op } = require("sequelize");
+const fs = require("fs-extra");
+const { uploadsArchivos, deleteArchivo } = require("../cloudinary");
 
 const getAllPost = async (req, res) => {
   const name = req.query.name;
@@ -38,7 +40,7 @@ const createPost = async (req, res) => {
     if (req.files) {
       const ar = await uploadsArchivos(req.files.file.tempFilePath);
       let paraeliminar = ar.public_id;
-      let URL = ar.url;
+      let URL = ar.secure_url;
       obj.url = paraeliminar;
       obj.image = URL;
       await fs.unlink(req.files.file.tempFilePath);
