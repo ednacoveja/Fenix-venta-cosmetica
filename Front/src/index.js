@@ -6,15 +6,23 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from "./redux/store";
+import axios from "axios";
+import { QueryClient, QueryClientProvider } from 'react-query'
+
+const queryClient = new QueryClient()
+axios.defaults.baseURL = "https://fenix-back.ednacoveja.repl.co";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
 root.render(
   <Provider store={store}>
     <React.StrictMode>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </React.StrictMode>
+        <QueryClientProvider client={queryClient}>
+           <BrowserRouter>
+             <App />
+           </BrowserRouter>
+          </QueryClientProvider>
+        </React.StrictMode>
   </Provider>
 );
 
