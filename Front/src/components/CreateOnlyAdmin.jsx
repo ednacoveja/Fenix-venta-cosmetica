@@ -4,8 +4,9 @@ import { Link} from "react-router-dom";
 import { createPost } from "../redux/actions";
 
 function CreateOnlyAdmin() {
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
+  
   const [input, setInput] = useState({
     name: "",
     description: "",
@@ -16,7 +17,7 @@ function CreateOnlyAdmin() {
   });
 
   const handlerChange = (e) => {
-    console.log(e.target.value)
+    console.log(e.target.files[0].name)
     // if(e.target.name === "image"){
     //   setInput({
     //     ...input,

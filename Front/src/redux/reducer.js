@@ -13,7 +13,7 @@ const rootReducer = (state = initialState, action) => {
                 allProducts: action.payload,
             }
         case "CREATE_POST":
-            console.log(action.payload.post);
+            console.log(action.payload);
             return {
                 productos: [action.payload, ...state.productos],
             };
