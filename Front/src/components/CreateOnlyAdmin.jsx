@@ -1,47 +1,52 @@
 import React, { useState } from "react";
-import { useDispatch} from "react-redux";
-import { Link} from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import { createPost } from "../redux/actions";
 
 function CreateOnlyAdmin() {
 
   const dispatch = useDispatch();
-  
+
   const [input, setInput] = useState({
     name: "",
     description: "",
-    image: "",
+    image: null,
     type: "",
     price: "",
     rating: "",
   });
 
   const handlerChange = (e) => {
-    console.log(e.target.files[0].name)
-    // if(e.target.name === "image"){
-    //   setInput({
-    //     ...input,
-    //     [e.target.name]: e.target.files[0],
-    //   });
-    // }
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handlerSubmit = (e) => {
-    e.preventDefault();
-    dispatch(createPost(input));
-    alert("creado")
+  const handleImageUpload = (e) => {
     setInput({
-      name: "",
-      description: "",
-      image: "",
-      type: "",
-      price: "",
-      rating: "",
+      ...input,
+      [e.target.name]: e.target.files[0],
     });
+  };
+
+  const handlerSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      await dispatch(createPost(input));
+      alert("creado");
+      setInput({
+        name: "",
+        description: "",
+        image: null,
+        type: "",
+        price: "",
+        rating: "",
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -101,10 +106,9 @@ function CreateOnlyAdmin() {
               className="input"
               type="file"
               name="image"
-              value={input.image}
-              onChange={(e) => handlerChange(e)}
+              onChange={(e) => handleImageUpload(e)}
             />
-      
+
             <br />
             <br />
             <label className="label">Type:</label>
