@@ -3,11 +3,11 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { Total } from './Total';
-import Product from './Product';
 import Navbar from './Navbar';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { getProductos } from '../redux/actions';
+import CardCarrito from './CardCarrito';
 
 
 export default function Carrito() {
@@ -26,7 +26,7 @@ export default function Carrito() {
                 {compra && compra.map((p) => {
                     return (
                         <Grid item xs={12} sm={8} md={6} lg={6}>
-                            <Product id={p.id} name={p.name} rating={p.rating} price={p.price} description={p.description} image={p.image} type={p.type} />
+                            <CardCarrito id={p._id} name={p.name} rating={p.rating} price={p.price} description={p.description} image={p.image} type={p.type} />
                         </Grid>
                     )
                 })}

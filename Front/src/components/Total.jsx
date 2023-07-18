@@ -1,7 +1,13 @@
 import { Button } from '@mui/material'
 import accounting from 'accounting'
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+
+
 export const Total = () => {
+
+    const compra = useSelector((state) => state.carrito)
+
     const clases = {
         root:{
             display:"flex",
@@ -16,7 +22,7 @@ export const Total = () => {
     }
     return (
         <div style={clases.root}>
-            <h5>Total items: 3</h5>
+            <h5>Total items: {compra.length}</h5>
             <h5> {accounting.formatMoney(2000, "$", 0)}</h5>
             <Button style={clases.button} variant="contained" color='error'>Comprar</Button>
         </div>

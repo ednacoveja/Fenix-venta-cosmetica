@@ -16,10 +16,14 @@ const rootReducer = (state = initialState, action) => {
         case "DELETE_ITEM":
             const del = action.payload;
             const compra = state.carrito;
-            const filtro = compra.filter((i) => i !== del);
+            const index=compra.findIndex((i)=>i._id===del)
+            let newArray=[...state.carrito]
+            if(index>=0){
+                newArray.splice(index,1)
+            }
             return {
                 ...state,
-                carrito: filtro,
+                carrito: newArray,
             };
         case "GET_PRODUCTS":
             return {
@@ -35,7 +39,7 @@ const rootReducer = (state = initialState, action) => {
         case "DELETE_POST":
             alert(action.payload.data);
             const allposteos = state.productos
-            const filter = allposteos.filter(el => el.id !== action.payload.id)
+            const filter = allposteos.filter(el => el._id !== action.payload.id)
             return {
                 ...state,
                 productos: filter,
