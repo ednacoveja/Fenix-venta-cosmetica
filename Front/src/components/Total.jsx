@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 export const Total = () => {
 
     const compra = useSelector((state) => state.carrito)
+    const suma= compra.reduce((accumulator, item) => accumulator + item.price, 0);
 
     const clases = {
         root:{
@@ -23,7 +24,7 @@ export const Total = () => {
     return (
         <div style={clases.root}>
             <h5>Total items: {compra.length}</h5>
-            <h5> {accounting.formatMoney(2000, "$", 0)}</h5>
+            <h5> {accounting.formatMoney(suma, "$", 0)}</h5>
             <Button style={clases.button} variant="contained" color='error'>Comprar</Button>
         </div>
     )
