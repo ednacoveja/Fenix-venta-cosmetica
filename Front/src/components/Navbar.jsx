@@ -8,9 +8,12 @@ import IconButton from '@mui/material/IconButton';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import { Badge } from '@mui/material';
 import { useNavigate, Link } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 
 export default function Navbar() {
+
+    const compra = useSelector((state) => state.carrito)
     const navigate = useNavigate();
 
     async function ALaHome(e) {
@@ -54,7 +57,7 @@ export default function Navbar() {
 
                     <IconButton aria-label='show cart items' color="inherit">
 
-                        <Badge badgeContent={3} color='error' max={99}
+                        <Badge badgeContent={compra.length} color='error' max={99}
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',
