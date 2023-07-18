@@ -2,10 +2,25 @@ const initialState = {
     productos: [],
     allProducts: [],
     user: null,
+    carrito: [],
 };
 
 const rootReducer = (state = initialState, action) => {
     switch (action.type) {
+        case "ADD_TO_CARRITO":
+            const item = action.payload;
+            return {
+                ...state,
+                carrito: [...state.carrito, item]
+            }
+        case "DELETE_ITEM":
+            const del = action.payload;
+            const compra = state.carrito;
+            const filtro = compra.filter((i) => i !== del);
+            return {
+                ...state,
+                carrito: filtro,
+            };
         case "GET_PRODUCTS":
             return {
                 ...state,
@@ -24,20 +39,6 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 productos: filter,
-            };
-        case "GET_USERS":
-            return {
-                ...state,
-                Users: action.payload,
-                loading: false,
-            };
-
-        case "CREATE_USER":
-            return {
-                ...state,
-                mensajeResultado: action.payload.msg,
-                UserLoged: action.payload.user,
-                loading: false,
             };
 
         default:

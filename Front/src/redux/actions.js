@@ -1,6 +1,25 @@
 import axios from "axios";
 
 
+
+export function AddToCarrito(id) {
+  return async function (dispatch) {
+    var response = await axios.get(`/products/${id}`);
+    return dispatch({
+      type: "ADD_TO_CARRITO",
+      payload: response.data
+    });
+  }
+}
+
+export function deleteItem(id) {
+  console.log(id);
+  return {
+    type: "DELETE_ITEM",
+    payload: id
+  }
+}
+
 export function getProductos() {
   try {
     return async function (dispatch) {
@@ -38,17 +57,4 @@ export function deletePost(id) {
   }
 }
 
-
-export const getUsers = () => dispatch => {
-  return axios.get("/users")
-    .then((d) => dispatch({ type: 'GET_USERS', payload: d.data }))
-    .catch((e) => console.log(e))
-}
-
-
-export const createUser = (form) => dispatch => {
-  return axios.post("/users", form)
-    .then(d => dispatch({ type: 'CREATE_USER', payload: d.data }))
-    .catch(e => console.log(e))
-}
 

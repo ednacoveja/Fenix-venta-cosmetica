@@ -5,15 +5,32 @@ import Typography from '@mui/material/Typography';
 import { Total } from './Total';
 import Product from './Product';
 import Navbar from './Navbar';
+import { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
+import { getProductos } from '../redux/actions';
 
 
 export default function Carrito() {
+    const dispatch = useDispatch();
+    const compra = useSelector((state) => state.carrito)
+
+    useEffect(() => {
+        dispatch(getProductos());
+    }, [dispatch]);
+
+
     function FormRow() {
         return (
             <React.Fragment>
-                <Grid item xs={12} sm={8} md={6} lg={6}>
-                    <Product />
-                </Grid>
+
+                {compra && compra.map((p) => {
+                    return (
+                        <Grid item xs={12} sm={8} md={6} lg={6}>
+                            <Product id={p.id} name={p.name} rating={p.rating} price={p.price} description={p.description} image={p.image} type={p.type} />
+                        </Grid>
+                    )
+                })}
+
             </React.Fragment>
         )
     }
