@@ -57,7 +57,7 @@ export default function Navbar() {
 
                     <IconButton aria-label='show cart items' color="inherit">
 
-                        <Badge badgeContent={compra.length} color='error' max={99}
+                        <Badge badgeContent={compra?.length} color='error' max={99}
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',

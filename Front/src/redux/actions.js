@@ -57,4 +57,14 @@ export function deletePost(id) {
   }
 }
 
+export function createUser(payload) {
+  try {
+    return async function (dispatch) {
+      const response = await axios.post("/users", payload);
+      return dispatch({ type: "CREATE_USER", payload: response.data });
+    };
+  } catch (e) {
+    console.log(e);
+  }
+}
 

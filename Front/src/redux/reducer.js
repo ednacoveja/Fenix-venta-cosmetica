@@ -1,7 +1,7 @@
 const initialState = {
     productos: [],
     allProducts: [],
-    user: null,
+    users: [],
     carrito: [],
 };
 
@@ -16,10 +16,10 @@ const rootReducer = (state = initialState, action) => {
         case "DELETE_ITEM":
             const del = action.payload;
             const compra = state.carrito;
-            const index=compra.findIndex((i)=>i._id===del)
-            let newArray=[...state.carrito]
-            if(index>=0){
-                newArray.splice(index,1)
+            const index = compra.findIndex((i) => i._id === del)
+            let newArray = [...state.carrito]
+            if (index >= 0) {
+                newArray.splice(index, 1)
             }
             return {
                 ...state,
@@ -43,6 +43,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 productos: filter,
+            };
+        case "CREATE_USER":
+            console.log(action.payload);
+            return {
+                users: [...state.users,action.payload],
             };
 
         default:
