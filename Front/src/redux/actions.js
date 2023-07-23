@@ -49,7 +49,7 @@ export function createPost(payload) {
 export function deletePost(id) {
   try {
     return async function (dispatch) {
-      var response = await axios.delete("/products" + id);
+      var response = await axios.delete("/products/" + id);
       return dispatch({ type: "DELETE_POST", payload: response.data });
     };
   } catch (e) {
@@ -68,3 +68,24 @@ export function createUser(payload) {
   }
 }
 
+export function getUsers() {
+  try {
+    return async function (dispatch) {
+      var response = await axios.get("/users");
+      return dispatch({ type: "GET_USERS", payload: response.data });
+    };
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export function deleteUser(id) {
+  try {
+    return async function (dispatch) {
+      var response = await axios.delete("/users/" + id);
+      return dispatch({ type: "DELETE_USER", payload: response.data });
+    };
+  } catch (e) {
+    console.log(e);
+  }
+}

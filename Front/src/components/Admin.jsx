@@ -1,11 +1,34 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { createPost } from "../redux/actions";
+import { createPost, getUsers, deleteUser } from "../redux/actions";
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from "@mui/material";
+import "./Admin.css"
+import Swal from "sweetalert2";
 
-function CreateOnlyAdmin() {
+function Admin() {
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsers());
+  }, [dispatch]);
+
+  const usuarios = useSelector((state) => state.users);
+
+  async function borrarUsuario(id) {
+    let paranoid = false;
+    dispatch(deleteUser(id, paranoid));
+    Swal.fire({
+      title: "Usuario Eliminado Correctamente",
+      color: "#382c4b",
+      icon: "success",
+      confirmButtonColor: "#382c4b",
+      confirmButtonText: "OK",
+      background: "#e8e8e8",
+    })
+    dispatch(getUsers());
+  }
 
   const [input, setInput] = useState({
     name: "",
@@ -119,6 +142,8 @@ function CreateOnlyAdmin() {
               value={input.type}
               onChange={(e) => handlerChange(e)}
             />
+            <br />
+            <br />
             <button
               className="buttonCreate"
               type="submit"
@@ -131,8 +156,61 @@ function CreateOnlyAdmin() {
           </div>
         </form>
       </div>
+      <h1 className="titulo">Usuarios</h1>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 50 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell >#</TableCell>
+              <TableCell >Nombre</TableCell>
+              <TableCell >Apellido</TableCell>
+              <TableCell >Email</TableCell>
+              <TableCell align="right"> Suspender </TableCell>
+              <TableCell align="right"> Eliminar </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {
+              usuarios
+                ? usuarios.map((user) => {
+                  { console.log(user) }
+                  return (
+                    <TableRow
+                      Key={user._id}
+                      sw={{ '&:last-child td, &:last-child th': { border: 5 } }}
+                    >
+
+                      <TableCell component="th" scope="row">
+                        {user._id}
+                      </TableCell>
+                      <TableCell>{user.firstName}</TableCell>
+                      <TableCell>{user.lastName}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell align="right">
+                      </TableCell>
+                      <TableCell align="right">
+                        <button
+                          onClick={() => borrarUsuario(user._id)}
+                          className="buttonUsuario"
+                        >
+                          Eliminar
+                        </button>
+                      </TableCell>
+
+                    </TableRow>
+                  )
+                })
+                : null}
+          </TableBody>
+
+        </Table>
+
+
+      </TableContainer>
+
+
     </div>
   );
 }
 
-export default CreateOnlyAdmin;
+export default Admin;

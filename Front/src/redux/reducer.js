@@ -44,10 +44,24 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 productos: filter,
             };
+
+        case "GET_USERS":
+            return {
+                ...state,
+                users: action.payload,
+            }
         case "CREATE_USER":
             console.log(action.payload);
             return {
-                users: [...state.users,action.payload],
+                users: [...state.users, action.payload],
+            };
+        case "DELETE_USER":
+            alert(action.payload.data);
+            const allusers = state.users
+            const filterA = allusers.filter(el => el._id !== action.payload.id)
+            return {
+                ...state,
+                users: filterA,
             };
 
         default:
