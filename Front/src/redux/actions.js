@@ -79,6 +79,16 @@ export function getUsers() {
   }
 }
 
+export function getUserLoged(email) {
+  try {
+    return async function (dispatch) {
+      return dispatch({ type: 'SET_USER', payload: email })
+    }
+  } catch (e) {
+    console.log(e);
+  }
+}
+
 export function deleteUser(id) {
   try {
     return async function (dispatch) {

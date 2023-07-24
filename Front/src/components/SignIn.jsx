@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navbar from './Navbar';
+import NavbarSimple from './NavBarSimple';
 import { Link as RouteLink, useNavigate } from "react-router-dom"
 import auth from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
@@ -46,7 +46,7 @@ export default function SignIn() {
     }
     return (
         <body >
-            <Navbar />
+            <NavbarSimple />
             <ThemeProvider theme={theme} >
                 <Container component="main" maxWidth="xs" >
                     <CssBaseline />

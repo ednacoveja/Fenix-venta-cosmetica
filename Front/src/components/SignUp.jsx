@@ -11,7 +11,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import Navbar from './Navbar';
+import NavbarSimple from './NavBarSimple';
 import { Link as RouteLink, useNavigate } from "react-router-dom"
 import auth from '../firebase';
 import { createUserWithEmailAndPassword } from "firebase/auth"
@@ -42,7 +42,7 @@ export default function SignUp() {
         e.preventDefault()
         createUserWithEmailAndPassword(auth, email, password)
             .then((auth) => {
-                console.log({ email, password, firstName, lastName })
+                console.log(auth)
                 if (auth) {
                     dispatch(createUser({ email, password, firstName, lastName }));
                 }
@@ -56,7 +56,7 @@ export default function SignUp() {
 
     return (
         <body>
-            <Navbar />
+            <NavbarSimple />
             <ThemeProvider theme={theme}>
                 <Container component="main" maxWidth="xs">
                     <CssBaseline />

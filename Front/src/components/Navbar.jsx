@@ -8,10 +8,26 @@ import IconButton from '@mui/material/IconButton';
 import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import { Badge } from '@mui/material';
 import { useNavigate, Link } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import auth from '../firebase';
+import { getUserLoged } from '../redux/actions';
 
 
 export default function Navbar() {
+
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        auth.onAuthStateChanged((authUser) => {
+            console.log(authUser.email)
+            if (authUser) {
+                dispatch(getUserLoged(authUser.email))
+            }
+        })
+    }, [])
+
+    const userLoged = useSelector((state) => state.UserLoged);
 
     const compra = useSelector((state) => state.carrito)
     const navigate = useNavigate();
@@ -24,6 +40,13 @@ export default function Navbar() {
         e.preventDefault();
         navigate("/carrito");
     }
+
+    async function Landing(e) {
+        e.preventDefault();
+        navigate("/");
+    }
+
+
 
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -46,13 +69,18 @@ export default function Navbar() {
                             />
                         </IconButton>
                     </Link>
-                    <Typography  sx={{ flexGrow: 1 }} >
+                    <Typography sx={{ flexGrow: 1 }} >
                         <Button color="inherit" component="button" variant="outline" onClick={(e) => {
                             ALaHome(e);
                         }}>Tienda Fenix</Button>
                     </Typography>
 
-                    <Typography variant="h7" component="div" sx={{ flexGrow: 0 }}> Estas como invitado/a </Typography>
+                    <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>{userLoged ? "Hi "+userLoged : "Estas como invitado/a"}</Typography>
+                    <Typography >
+                        <Button color="inherit" component="button" variant="outline" onClick={(e) => {
+                            Landing(e);
+                        }}>Sign-Up</Button>
+                    </Typography>
 
 
                     <IconButton aria-label='show cart items' color="inherit">
