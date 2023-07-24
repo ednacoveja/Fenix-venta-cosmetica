@@ -12,6 +12,10 @@ export function AddToCarrito(id) {
   }
 }
 
+export function clearCarrito() {
+  return { type: "CLEAR_CARRITO" };
+}
+
 export function deleteItem(id) {
   console.log(id);
   return {

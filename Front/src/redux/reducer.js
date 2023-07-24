@@ -3,7 +3,7 @@ const initialState = {
     allProducts: [],
     users: [],
     carrito: [],
-    UserLoged:null
+    UserLoged: null
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -14,6 +14,11 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 carrito: [...state.carrito, item]
             }
+        case "CLEAR_CARRITO":
+            return {
+                ...state,
+                carrito: [],
+            };
         case "DELETE_ITEM":
             const del = action.payload;
             const compra = state.carrito;

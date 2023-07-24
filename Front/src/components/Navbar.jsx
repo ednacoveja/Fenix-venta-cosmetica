@@ -11,7 +11,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import auth from '../firebase';
-import { getUserLoged } from '../redux/actions';
+import { getUserLoged,clearCarrito } from '../redux/actions';
 
 
 export default function Navbar() {
@@ -20,7 +20,7 @@ export default function Navbar() {
 
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
-            console.log(authUser.email)
+            console.log(authUser)
             if (authUser) {
                 dispatch(getUserLoged(authUser.email))
             }
@@ -28,6 +28,24 @@ export default function Navbar() {
     }, [])
 
     const userLoged = useSelector((state) => state.UserLoged);
+    const email = userLoged;
+    const username = email?.split('@')[0];
+
+    const handleAuth = (e) => {
+        e.preventDefault();
+        if (userLoged) {
+            auth.signOut()
+            dispatch(getUserLoged(null))
+            dispatch(clearCarrito())
+
+            navigate("/")
+        }else{
+            navigate("/signin")
+        }
+
+   
+    }
+
 
     const compra = useSelector((state) => state.carrito)
     const navigate = useNavigate();
@@ -41,10 +59,9 @@ export default function Navbar() {
         navigate("/carrito");
     }
 
-    async function Landing(e) {
-        e.preventDefault();
-        navigate("/");
-    }
+
+
+
 
 
 
@@ -75,11 +92,11 @@ export default function Navbar() {
                         }}>Tienda Fenix</Button>
                     </Typography>
 
-                    <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>{userLoged ? "Hi "+userLoged : "Estas como invitado/a"}</Typography>
+                    <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>{userLoged ? "Hi " + username : "Estas como invitado/a"}</Typography>
                     <Typography >
                         <Button color="inherit" component="button" variant="outline" onClick={(e) => {
-                            Landing(e);
-                        }}>Sign-Up</Button>
+                            handleAuth(e)
+                        }}>{userLoged ? "Sign-Up" : "Sign-In"}</Button>
                     </Typography>
 
 
