@@ -5,7 +5,7 @@ import Product from './Product';
 import Navbar from './Navbar';
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductos } from '../redux/actions';
+import { getProductos,getUserLoged } from '../redux/actions';
 
 
 export default function Products() {
@@ -13,7 +13,8 @@ export default function Products() {
   const allProducts = useSelector((state) => state.productos);
 
   useEffect(() => {
-    dispatch(getProductos());
+    dispatch(getProductos())
+    dispatch(getUserLoged ())
   }, [dispatch]);
 
   return (

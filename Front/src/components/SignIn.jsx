@@ -16,6 +16,8 @@ import NavbarSimple from './NavBarSimple';
 import { Link as RouteLink, useNavigate } from "react-router-dom"
 import auth from '../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { getUserLoged } from '../redux/actions';
+import { useDispatch } from 'react-redux';
 
 
 const theme = createTheme();
@@ -32,6 +34,7 @@ export default function SignIn() {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const navigate = useNavigate()
+    const dispatch=useDispatch()
 
     const signin = (e) => {
         e.preventDefault()
@@ -39,6 +42,7 @@ export default function SignIn() {
             .then((auth) => {
                 console.log(auth)
                 if(auth) {
+                    dispatch(getUserLoged(email))
                     navigate("/home")
                 }
             })

@@ -3,7 +3,7 @@ const initialState = {
     allProducts: [],
     users: [],
     carrito: [],
-    UserLoged: null
+    UserLoged: {}
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -58,9 +58,15 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "SET_USER":
+            console.log(action.payload)
             return {
                 ...state,
-                UserLoged: action.payload,
+                UserLoged: action.payload?action.payload:null,
+            };
+
+        case "EDIT_USER":
+            return {
+                ...state,
             };
         case "CREATE_USER":
             console.log(action.payload);

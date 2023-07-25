@@ -85,13 +85,34 @@ export function getUsers() {
 
 export function getUserLoged(email) {
   try {
-    return async function (dispatch) {
-      return dispatch({ type: 'SET_USER', payload: email })
+    if (email) {
+      return async function (dispatch) {
+        var response = await axios.get(`/users?email=${encodeURIComponent(email)}`)
+        return dispatch({ type: 'SET_USER', payload: response.data.length > 0 ? response.data[0] : null })
+      }
+    } else {
+      return async function (dispatch) {
+        return dispatch({ type: 'SET_USER', payload: null })
+      }
     }
   } catch (e) {
     console.log(e);
   }
 }
+
+export const editUser = (form) => async (dispatch) => {
+  try {
+    const updatedUser = {
+      id: form.id,
+      carrito: form.carrito,
+    };
+
+    const response = await axios.put(`/users/${form.id}`, updatedUser);
+    dispatch({ type: "EDIT_USER", payload: response.data });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export function deleteUser(id) {
   try {

@@ -11,25 +11,27 @@ import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import auth from '../firebase';
-import { getUserLoged,clearCarrito } from '../redux/actions';
+import { getUserLoged, clearCarrito } from '../redux/actions';
 
 
 export default function Navbar() {
 
     const dispatch = useDispatch()
 
+    const userLoged = useSelector((state) => state.UserLoged);
+
+
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
             console.log(authUser)
             if (authUser) {
                 dispatch(getUserLoged(authUser.email))
+            } else {
+                dispatch(getUserLoged(null));
             }
         })
-    }, [])
+    }, [dispatch])
 
-    const userLoged = useSelector((state) => state.UserLoged);
-    const email = userLoged;
-    const username = email?.split('@')[0];
 
     const handleAuth = (e) => {
         e.preventDefault();
@@ -37,15 +39,11 @@ export default function Navbar() {
             auth.signOut()
             dispatch(getUserLoged(null))
             dispatch(clearCarrito())
-
             navigate("/")
-        }else{
+        } else {
             navigate("/signin")
         }
-
-   
     }
-
 
     const compra = useSelector((state) => state.carrito)
     const navigate = useNavigate();
@@ -59,17 +57,9 @@ export default function Navbar() {
         navigate("/carrito");
     }
 
-
-
-
-
-
-
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="fixed" sx={{ bgcolor: "black", boxShadow: "10px 0.7px grey" }} >
-
-
                 <Toolbar >
                     <Link to="/">
                         <IconButton
@@ -92,7 +82,9 @@ export default function Navbar() {
                         }}>Tienda Fenix</Button>
                     </Typography>
 
-                    <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>{userLoged ? "Hi " + username : "Estas como invitado/a"}</Typography>
+                    <Typography variant="h7" component="div" sx={{ flexGrow: 1 }}>
+                        {userLoged ? `Hola ${userLoged.firstName}` : "Estás como invitado/a"}
+                    </Typography>
                     <Typography >
                         <Button color="inherit" component="button" variant="outline" onClick={(e) => {
                             handleAuth(e)
