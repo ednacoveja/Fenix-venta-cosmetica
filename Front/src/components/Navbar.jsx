@@ -19,7 +19,8 @@ export default function Navbar() {
     const dispatch = useDispatch()
 
     const userLoged = useSelector((state) => state.UserLoged);
-
+    const compra = useSelector((state) => state.carrito)
+    const compraUser = useSelector((state) => state.userCarrito)
 
     useEffect(() => {
         auth.onAuthStateChanged((authUser) => {
@@ -38,14 +39,12 @@ export default function Navbar() {
         if (userLoged) {
             auth.signOut()
             dispatch(getUserLoged(null))
-            dispatch(clearCarrito())
             navigate("/")
         } else {
             navigate("/signin")
         }
     }
 
-    const compra = useSelector((state) => state.carrito)
     const navigate = useNavigate();
 
     async function ALaHome(e) {
@@ -94,7 +93,7 @@ export default function Navbar() {
 
                     <IconButton aria-label='show cart items' color="inherit">
 
-                        <Badge badgeContent={compra?.length} color='error' max={99}
+                        <Badge badgeContent={userLoged?compraUser.length:compra.length} color='error' max={99}
                             anchorOrigin={{
                                 vertical: 'top',
                                 horizontal: 'right',

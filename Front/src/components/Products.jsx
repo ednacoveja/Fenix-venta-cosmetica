@@ -11,6 +11,7 @@ import { getProductos,getUserLoged } from '../redux/actions';
 export default function Products() {
   const dispatch = useDispatch();
   const allProducts = useSelector((state) => state.productos);
+  const userLoged = useSelector((state) => state.UserLoged);
 
   useEffect(() => {
     dispatch(getProductos())
@@ -25,7 +26,7 @@ export default function Products() {
           {allProducts && allProducts.map((p) => {
             return (
               <Grid item xs={12} sm={6} md={5} lg={4}>
-                <Product id={p._id} name={p.name} rating={p.rating} price={p.price} description={p.description} image={p.image} type={p.type}/>
+                <Product id={p._id} name={p.name} rating={p.rating} price={p.price} description={p.description} image={p.image} type={p.type} userLoged={userLoged}/>
               </Grid>
             )
           })}

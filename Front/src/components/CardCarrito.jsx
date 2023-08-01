@@ -12,8 +12,8 @@ import Typography from '@mui/material/Typography';
 import { cyan, grey, teal } from '@mui/material/colors';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import accounting from "accounting"
-import { useDispatch } from 'react-redux';
-import {deleteItem} from "../redux/actions"
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteItem, deleteUserCarritoItem, getUserLoged } from "../redux/actions"
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
 
@@ -29,19 +29,22 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function CardCarrito({ id, name, rating, description, image, type, price }) {
+export default function CardCarrito({ id, name, rating, description, image, type, price,userLoged }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
         setExpanded(!expanded);
     };
 
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
 
-    const deleteProduct= (id) => {
-        dispatch(deleteItem(id))
-    }
-
+    const deleteProduct = (id) => {
+        if (userLoged) {
+            dispatch(deleteUserCarritoItem(id, userLoged));
+        } else {
+            dispatch(deleteItem(id));
+        }
+    };
 
     return (
         <Card sx={{ maxWidth: 345, backgroundColor: "black" }} >
@@ -94,7 +97,7 @@ export default function CardCarrito({ id, name, rating, description, image, type
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to Cart" onClick={()=>deleteProduct(id)} >
+                <IconButton aria-label="add to Cart" onClick={() => deleteProduct(id)} >
                     <DeleteOutlineIcon fontSize="large" sx={{ color: 'white' }} />
                 </IconButton>
                 {Array(rating)

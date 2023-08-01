@@ -2,14 +2,33 @@ import axios from "axios";
 
 
 
-export function AddToCarrito(id) {
+export function addToCarrito(idProduct, userLoged) {
   return async function (dispatch) {
-    var response = await axios.get(`/products/${id}`);
-    return dispatch({
-      type: "ADD_TO_CARRITO",
-      payload: response.data
-    });
-  }
+    try {
+      if (userLoged) {
+        try {
+          const updatedUser = {
+            carrito: [...userLoged.carrito, idProduct],
+          };
+          console.log(updatedUser)
+
+          const response = await axios.put(`/users/${userLoged._id}`, updatedUser);
+          dispatch({ type: "EDIT_USER", payload: response.data });
+        } catch (error) {
+          console.log(error);
+        }
+
+      } else {
+        var response = await axios.get(`/products/${idProduct}`);
+        return dispatch({
+          type: "ADD_TO_CARRITO",
+          payload: response.data
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function clearCarrito() {
@@ -17,11 +36,33 @@ export function clearCarrito() {
 }
 
 export function deleteItem(id) {
-  console.log(id);
   return {
     type: "DELETE_ITEM",
     payload: id
   }
+}
+
+export function deleteUserCarritoItem(id, userLoged) {
+  return async function (dispatch) {
+    try {
+      // Actualizar el carrito en el estado de Redux
+      const userIndex = userLoged.carrito.findIndex((item) => item._id === id);
+      const newUserCarrito = userLoged.carrito
+      if (userIndex >= 0) {
+        newUserCarrito.splice(userIndex, 1);
+      }
+      dispatch({ type: "SET_USER", payload: { ...userLoged, carrito: newUserCarrito } });
+
+      // Actualizar el carrito en la base de datos
+      const updatedUser = {
+        carrito: newUserCarrito,
+      };
+      const response = await axios.put(`/users/${userLoged._id}`, updatedUser);
+      dispatch({ type: "EDIT_USER", payload: response.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 }
 
 export function getProductos() {
@@ -88,11 +129,14 @@ export function getUserLoged(email) {
     if (email) {
       return async function (dispatch) {
         var response = await axios.get(`/users?email=${encodeURIComponent(email)}`)
-        return dispatch({ type: 'SET_USER', payload: response.data.length > 0 ? response.data[0] : null })
+        const userLoged = response.data.length > 0 ? response.data[0] : null;
+        dispatch({ type: 'SET_USER', payload: userLoged })
+        dispatch({ type: 'SET_LOGGED_IN', payload: userLoged !== null })
       }
     } else {
       return async function (dispatch) {
-        return dispatch({ type: 'SET_USER', payload: null })
+        dispatch({ type: 'SET_USER', payload: null })
+        dispatch({ type: 'SET_LOGGED_IN', payload: false })
       }
     }
   } catch (e) {
@@ -103,11 +147,11 @@ export function getUserLoged(email) {
 export const editUser = (form) => async (dispatch) => {
   try {
     const updatedUser = {
-      id: form.id,
+      _id: form._id,
       carrito: form.carrito,
     };
 
-    const response = await axios.put(`/users/${form.id}`, updatedUser);
+    const response = await axios.put(`/users/${form._id}`, updatedUser);
     dispatch({ type: "EDIT_USER", payload: response.data });
   } catch (error) {
     console.log(error);

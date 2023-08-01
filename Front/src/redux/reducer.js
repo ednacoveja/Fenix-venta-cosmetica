@@ -3,7 +3,9 @@ const initialState = {
     allProducts: [],
     users: [],
     carrito: [],
-    UserLoged: {}
+    userCarrito: [],
+    UserLoged: {},
+    isLoggedIn: false,
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -12,8 +14,9 @@ const rootReducer = (state = initialState, action) => {
             const item = action.payload;
             return {
                 ...state,
-                carrito: [...state.carrito, item]
-            }
+                carrito: [...state.carrito, item],
+            };
+
         case "CLEAR_CARRITO":
             return {
                 ...state,
@@ -31,6 +34,7 @@ const rootReducer = (state = initialState, action) => {
                 ...state,
                 carrito: newArray,
             };
+   
         case "GET_PRODUCTS":
             return {
                 ...state,
@@ -58,18 +62,23 @@ const rootReducer = (state = initialState, action) => {
             }
 
         case "SET_USER":
-            console.log(action.payload)
             return {
                 ...state,
-                UserLoged: action.payload?action.payload:null,
+                UserLoged: action.payload ? action.payload : null,
+                userCarrito: action.payload ? action.payload.carrito : [],
+            };
+        case "SET_LOGGED_IN":
+            return {
+                ...state,
+                isLoggedIn: action.payload,
             };
 
         case "EDIT_USER":
+            console.log(action.payload)
             return {
                 ...state,
             };
         case "CREATE_USER":
-            console.log(action.payload);
             return {
                 users: [...state.users, action.payload],
             };

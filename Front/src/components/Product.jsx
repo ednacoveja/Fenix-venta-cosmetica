@@ -14,7 +14,7 @@ import AddShoppingCart from '@mui/icons-material/AddShoppingCart';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import accounting from "accounting"
 import { useDispatch } from 'react-redux';
-import {AddToCarrito} from "../redux/actions"
+import {addToCarrito} from "../redux/actions"
 
 
 
@@ -29,7 +29,7 @@ const ExpandMore = styled((props) => {
     }),
 }));
 
-export default function Product({ id, name, rating, description, image, type, price }) {
+export default function Product({ id, name, rating, description, image, type, price,userLoged }) {
     const [expanded, setExpanded] = React.useState(false);
 
     const handleExpandClick = () => {
@@ -39,7 +39,7 @@ export default function Product({ id, name, rating, description, image, type, pr
     const dispatch = useDispatch()
 
     const addToBasket = (id) => {
-        dispatch(AddToCarrito(id))
+        dispatch(addToCarrito(id,userLoged))
     }
 
 
