@@ -1,4 +1,4 @@
-import { Button, Link } from '@mui/material'
+import { Button } from '@mui/material'
 import accounting from 'accounting'
 import React from 'react'
 import { useSelector } from 'react-redux';
@@ -24,11 +24,7 @@ export const Total = () => {
             marginTop: "2rem"
         }
     }
-    function finalizarCompra() {
 
-        window.location.href = 'https://wa.me/543876305279'
-
-    }
     return (
         <div style={clases.root}>
             <h5>Total items: {isLoggedIn ? compraLogin.length : compra.length}</h5>
